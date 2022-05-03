@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { client } from "./Client";
+import { Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
+import Posts from "./Components/Posts";
+import Post from "./Components/Post";
 
 function App() {
+  const [data, setData] = useState([]);
+
+  console.log(data.items);
+  useEffect(() => {
+    client
+      .getEntries()
+      .then((res) => {
+        setData(res);
+      })
+      .catch(console.error);
+  }, []);
+  // console.log(client);
+  const articles = data.items;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      {articles ? (
+        <Routes>
+          <Route path="/" element={<Posts data={articles} />} />
+          <Route path=":id" element={<Post data={articles} />} />
+        </Routes>
+      ) : (
+        "Loading..."
+      )}
+    </>
   );
 }
 
