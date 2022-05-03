@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { Map, Marker } from "pigeon-maps";
+// import { Map, Marker } from "pigeon-maps";
+// import Posts from "./Components/Posts";
+import { Button } from "react-bootstrap";
 
 const Post = ({ data }) => {
   const { id } = useParams();
@@ -13,9 +15,10 @@ const Post = ({ data }) => {
 
   const foundArticle = data.find((article) => id === article.sys.id);
   //   console.log(foundArticle);
-  const posts = foundArticle.fields.description;
+  const posts = foundArticle.description;
   //   console.log(posts);
-  const { location } = foundArticle.fields.location;
+  const location = foundArticle.location;
+  console.log(location);
   return (
     <>
       {foundArticle && (
@@ -27,17 +30,23 @@ const Post = ({ data }) => {
           ))}
           <h4>Location</h4>
           <p>
-            <Map
+            {/* <Map
               height={200}
               width={280}
               defaultCenter={[location.lat, location.lon]}
               defaultZoom={8}
             >
               <Marker width={30} anchor={[location.lat, location.lon]} />
-            </Map>
+            </Map> */}
           </p>
           <p>{foundArticle.fields.description}</p>
-          <button onClick={handleClick}>Home</button>
+          <button
+            className="btn btn-primary"
+            variant="primary"
+            onClick={handleClick}
+          >
+            Home
+          </button>
         </div>
       )}
     </>

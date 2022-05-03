@@ -22,7 +22,9 @@ code {
   display: flex;
   justify-content: center;
   font-family: Roboto sans-serif;
-  color: red;
+  font-size: larger;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
 }
 
 #subtitle {
